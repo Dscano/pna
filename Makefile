@@ -1,15 +1,16 @@
 SPEC=PNA
+ROUGE_STYLE=github
 
-all: build/${SPEC}.pdf
+all: ${SPEC}.pdf
 
-build/${SPEC}.pdf: ${SPEC}.mdk
-	madoko --pdf -vv --png --odir=build $<
-
-build/${SPEC}.pdf: p4.json
-build/${SPEC}.pdf: pna.p4
+${SPEC}.pdf: ${SPEC}.adoc 
+	time asciidoctor-pdf -v \
+		-r asciidoctor-mathematical \
+		-a pdf-fontsdir=resources/fonts \
+		-a rouge-style=$(ROUGE_STYLE) $<
 
 clean:
-	${RM} -rf build
+	/bin/rm -f ${SPEC}.pdf 
 
 P4C=p4test
 #P4C=p4test --Wdisable=uninitialized_out_param

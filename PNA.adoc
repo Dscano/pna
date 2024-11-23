@@ -1,150 +1,29 @@
-Title : P4 Portable NIC Architecture (PNA)
-Title Note: (working draft after version 0.7 release)
-Title Footer: &date;
-Author : The P4.org Architecture Working Group
-Heading depth: 4
-Pdf Latex: xelatex
-Document Class: [11pt]article
-Package: [top=1in, bottom=1.25in, left=1in, right=1in]geometry
-Package: fancyhdr
-
-Tex Header:
-  \setlength{\headheight}{30pt}
-  \renewcommand{\footrulewidth}{0.5pt}
-
-@if html {
-body.madoko {
-  font-family: utopia-std, serif;
-}
-title,titlenote,titlefooter,authors,h1,h2,h3,h4,h5 {
-  font-family: helvetica, sans-serif;
-  font-weight: bold;
-}
-pre, code {
-  language: p4;
-  font-family: monospace;
-  font-size: 10pt;
-}
-}
-
-@if tex {
-body.madoko {
-  font-family: UtopiaStd-Regular;
-}
-title,titlenote,titlefooter,authors {
-  font-family: sans-serif;
-  font-weight: bold;
-}
-pre, code {
-  language: p4;
-  font-family: LuxiMono;
-  font-size: 75%;
-}
-}
-
-Colorizer: p4
-.token.keyword    {
-    font-weight: bold;
-}
-
-@if html {
-p4example {
-  replace: "~ Begin P4ExampleBlock&nl;\
-                 ````&nl;&source;&nl;````&nl;\
-                 ~ End P4ExampleBlock";
-  padding:6pt;
-  margin-top: 6pt;
-  margin-bottom: 6pt;
-  border: solid;
-  background-color: #ffffdd;
-  border-width: 0.5pt;
-}
-}
-
-@if tex {
-p4example {
-  replace: "~ Begin P4ExampleBlock&nl;\
-                 ````&nl;&source;&nl;````&nl;\
-                 ~ End P4ExampleBlock";
-  breakable: true;
-  padding: 6pt;
-  margin-top: 6pt;
-  margin-bottom: 6pt;
-  border: solid;
-  background-color: #ffffdd;
-  border-width: 0.5pt;
-}
-}
+= P4 Portable NIC Architecture (PNA)
+:doctype: book
+:revdate: {docdate}
+:revnumber: v0.7
+:imagesdir: resources/figs
+:data-uri:
+:font-size: 10
+:sectnums: 5
+:sectnumlevels: 5
+:toc: macro
+:toc-title: Contents
+:toclevels: 5
+:toc: left
+:!chapter-signifier:
+:xrefstyle: short
+:stem: latexmath
+:pdf-themesdir: resources/theme/
+:pdf-theme: p4-theme.yml
+:stylesdir: resources/theme/
+:stylesheet: p4-stylesheet.css
+:source-highlighter: rouge
 
 
-@if html {
-p4pseudo {
-  replace: "~ Begin P4PseudoBlock&nl;\
-                 ````&nl;&source;&nl;````&nl;\
-                 ~ End P4PseudoBlock";
-  padding: 6pt;
-  margin-top: 6pt;
-  margin-bottom: 6pt;
-  border: solid;
-  background-color: #e9fce9;
-  border-width: 0.5pt;
-}
-}
 
-@if tex {
-p4pseudo {
-  replace: "~ Begin P4PseudoBlock&nl;\
-                 ````&nl;&source;&nl;````&nl;\
-                 ~ End P4PseudoBlock";
-  breakable : true;
-  padding: 6pt;
-  margin-top: 6pt;
-  margin-bottom: 6pt;
-  background-color: #e9fce9;
-  border: solid;
-  border-width: 0.5pt;
-}
-}
-
-@if html {
-p4grammar {
-  replace: "~ Begin P4GrammarBlock&nl;\
-                 ````&nl;&source;&nl;````&nl;\
-                 ~ End P4GrammarBlock";
-  border: solid;
-  margin-top: 6pt;
-  margin-bottom: 6pt;
-  padding: 6pt;
-  background-color: #e6ffff;
-  border-width: 0.5pt;
-}
-}
-
-@if tex {
-p4grammar {
-  replace: "~ Begin P4GrammarBlock&nl;\
-                 ````&nl;&source;&nl;````&nl;\
-                 ~ End P4GrammarBlock";
-  breakable: true;
-  margin-top: 6pt;
-  margin-bottom: 6pt;
-  padding: 6pt;
-  background-color: #e6ffff;
-  border: solid;
-  border-width: 0.5pt;
-}
-}
-
-tbd {
-    replace: "~ Begin TbdBlock&nl;\
-                   TBD: &source;&nl;\
-              ~ End TbdBlock&nl;";
-    color: red;
-}
-
-[TITLE]
-
-~ Begin Abstract
+[abstract]
+.Abstract
 P4 is a domain-specific language for describing how packets are
 processed by a network data plane. A P4 program comprises an
 architecture, which describes the structure and capabilities of the
@@ -154,11 +33,11 @@ Architecture (PNA) is an architecture that describes the structure and
 common capabilities of network interface controller (NIC) devices that
 process packets going between one or more interfaces and a host
 system.
-~ End Abstract
 
-[TOC]
 
-# Introduction
+toc::[]
+
+= Introduction
 
 Note that this document is still a working draft.  Significant changes
 are expected to be made before version 1.0 of this specification is
@@ -168,11 +47,11 @@ The Portable NIC Architecture (PNA) is the P4 architecture that defines
 the structure and common capabilities for network interface controller
 (NIC) devices. PNA comprises two main components:
 
-1. A programmable pipeline that can be used to realize a variety of
+* A programmable pipeline that can be used to realize a variety of
 different "packet paths" going between the various ports on the device
 (e.g., network interfaces or the host system it is attached to), and
 
-2. A library of types (e.g., intrinsic and standard metadata) and
+* A library of types (e.g., intrinsic and standard metadata) and
 P4~16~ externs (e.g., counters, meters, and registers).
 
 PNA is designed to model the common features of a broad class of NIC
