@@ -3,9 +3,10 @@ ROUGE_STYLE=github
 
 all: ${SPEC}.pdf
 
-${SPEC}.pdf: ${SPEC}.adoc 
+${SPEC}.pdf: ${SPEC}.adoc
 	time asciidoctor-pdf -v \
 		-r asciidoctor-mathematical \
+		-r asciidoctor-bibtex \
 		-a pdf-fontsdir=resources/fonts \
 		-a rouge-style=$(ROUGE_STYLE) $<
 
