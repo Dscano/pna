@@ -245,9 +245,11 @@ Architecture specific metadata (e.g. structs) are prefixed by `pna_`.
 must be supported by a PNA implementation. An implementation is
 allowed to support paths for packets that are not described here.
 
-~Begin TBD
+
+[NOTE]
 Create another figure with the updated architecture diagram and names for the paths.
-~End TBD
+
+
 
 .Packet Paths in PNA.
 [#fig-packet-paths]
@@ -264,30 +266,13 @@ here as "main".
 [.center,%autowidth]
 [#results-of-one-pkt-thru-main]
 |===
-|-------------|---------------|--------------------|
-|             | Processed     | Resulting          |
-| Description | next by       | packet(s)          |
-+:------------+:--------------+:-------------------+
-| packet from   | main, with    | Zero or more mirrored  |
-| network port  | direction     | packets, plus at most  |
-|---------------|               | |
-| packet from   | `NET_TO_HOST` | one of: a net-to-host  |
-| net-to-host   |               | recirculated packet,   |
-| recirculate   |               | or one to-host packet. |
-|---------------|               |                        |
-| packet from   |               |                        |
-| port loopback |               |                        |
-|---------------|---------------|------------------------|
-| packet from   | main, with    | Zero or more mirrored  |
-| message processing | direction | packets, plus at most |
-|---------------|               | |
-| packet from   | `HOST_TO_NET` | one of: a host-to-net  |
-| host-to-net   |               | recirculated packet,   |
-| recirculate   |               | or one to-net packet.  |
-|---------------|               |                        |
-| packet from   |               |                        |
-| host loopback |               |                        |
-|---------------|---------------|------------------------|
+| *Description* |  *Processed next by*| *Resulting packet(s)*
+| packet from network port             1.3+^| main, with direction `NET_TO_HOST` 1.3+^|Zero or more mirrored packets, plus at most one of: a net-to-host recirculated packet, or one to-host packet.
+| packet from net-to-host recirculate 
+| packet from  port loopback
+| packet from  message processing      1.3+^| main, with  direction `HOST_TO_NET` 1.3+^|Zero or more mirrored packets, plus at most one of: a host-to-net recirculated packet, or one to-net packet.
+| packet from  host-to-net recirculate 
+| packet from  host loopback
 |===
 
 Note that each mirrored packet that results from `mirror_packet`
@@ -399,19 +384,19 @@ include::pna.p4[tag=Programmable_blocks]
 
 Refer to <<#sec-packet-paths>> for the packet paths provided by PNA.
 
-~Begin TBD
+[NOTE]
 Need to decide where multicast replication can occur, and in what
 conditions.
-~End TBD
 
-~Begin TBD
+
+[NOTE]
 Need to decide where packet mirroring occurs, and in what
 conditions, and how the mirrored packets differ from the originals.
-~End TBD
 
-~Begin TBD
+
+[NOTE]
 Rewrite this section once the overall architecture is approved
-~End TBD
+
 [#sec-initial-values-of-packets]
 === Initial values of packets processed by main parser
 
@@ -631,13 +616,13 @@ in the main block in the `NET_TO_HOST` direction, already destined for
 the vport `destination_port`.  That vport can be overwritten by calls
 to forwarding functions.
 
-~Begin TBD
+[NOTE]
 When a mirror copied packet comes back to the main control, it will
 have some metadata indicating it is mirror copy.  We should define a
 way in PNA to recognize such mirror copies, e.g. some new extern
 function call returning true if the packet was created by a
 `mirror_packet` operation.
-~End TBD
+
 [#sec-packet-recirculation]
 === Packet recirculation
 
@@ -684,7 +669,7 @@ the places mentioned in <<#table-extern-usage>>.
 | *Extern type*       | *Where it may be instantiated and called from* 
 | `ActionProfile`   | MainControl
 | `ActionSelector`  | MainControl
-| `Checksum`        | MainParser, MainControl, MainDeparser |
+| `Checksum`        | MainParser, MainControl, MainDeparser 
 | `Counter`         | MainControl
 | `Digest`          | MainDeparser
 | `DirectCounter`   | MainControl
@@ -766,8 +751,7 @@ specification.
 | `add_on_miss`         | `boolean` | <<#sec-add-on-miss>>
 | `pna_direct_counter` | one `DirectCounter` instance name |  
 | `pna_direct_meter` | one `DirectMeter` instance name |  
-| `pna_implementation`  | instance name of one `ActionProfile` |  
-|                       | or `ActionSelector` |  
+| `pna_implementation`  | instance name of one `ActionProfile` or `ActionSelector` |  
 | `pna_empty_group_action` | action |  
 | `pna_idle_timeout` | `PNA_IdleTimeout_t` | <<#sec-idle-timeout>>
 |===
@@ -972,10 +956,9 @@ entries, and thus will often use `add_on_miss = true` and
 
 ==== Why a common pipeline, instead of separate pipelines for each direction?
 
-~Begin TBD
+[NOTE]
 Andy can write this one.  Basic reasons are summarized in
 existing slides.
-~End TBD
 
 ==== Is it inefficient to have the `MainParser` redo work?
 
