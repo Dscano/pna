@@ -61,9 +61,9 @@ P4~16~ externs (e.g., counters, meters, and registers).
 PNA is designed to model the common features of a broad class of NIC
 devices. By providing standard APIs and coding guidelines, the hope is
 to enable developers to write programs that are portable across
-multiple NIC devices that are conformant to the PNA[1].
+multiple NIC devices that are conformant to the PNA [Footnote 1].
 
-[1] Of course, given the tight hardware resource
+[Footnote 1] Of course, given the tight hardware resource
     constraints on NIC devices, there is no promise that a given P4
     program that compiles on one device will also compile on another
     device. However, it should at least be the case that those P4
@@ -290,9 +290,9 @@ Each PNA implementation will have specific bit widths in the data
 plane for the types shown in the code excerpt of Section
 <<#sec-pna-type-definitions-code>>.  These widths are defined in the
 target specific `pna.p4` include file.  They are expected to differ
-from one PNA implementation to another[1].
+from one PNA implementation to another [Footnote 2].
 
-[1]: It is expected that `pna.p4` include files for
+[Footnote 2]: It is expected that `pna.p4` include files for
     different targets will be nearly identical to each
     other.  Besides the possibility of differing bit widths for these
     PNA types, the only expected differences between `pna.p4` files
@@ -892,6 +892,7 @@ entries, and thus will often use `add_on_miss = true` and
 [#sec-atomicity-of-control-plane-api-operations]
 == Atomicity of control plane API operations 
 
+[appendix]
 [#sec-appendix-revision-history]
 == Appendix: Revision History 
 
@@ -905,11 +906,7 @@ entries, and thus will often use `add_on_miss = true` and
 | 0.7 | December 22, 2022 | Version 0.7 
 |===
 
-[appendix]
-= Appendix 
-
-=== Revision History
-==== Changes made in version 0.7
+=== Changes made in version 0.7
 
 * Added extern functions `add_entry_if`, `set_entry_expire_time_if`,
   and `update_expire_info`, intended to be more friendly to targets
@@ -948,19 +945,19 @@ entries, and thus will often use `add_on_miss = true` and
 * Many minor changes in example P4 programs to keep up with changes to
   the specification and pna.p4 include file.
 
+[appendix]
+== Appendix: Open Issues
 
-=== Appendix: Open Issues
+[appendix]
+== Appendix: Rationale for design
 
-
-=== Appendix: Rationale for design
-
-==== Why a common pipeline, instead of separate pipelines for each direction?
+=== Why a common pipeline, instead of separate pipelines for each direction?
 
 [NOTE]
 Andy can write this one.  Basic reasons are summarized in
 existing slides.
 
-==== Is it inefficient to have the `MainParser` redo work?
+=== Is it inefficient to have the `MainParser` redo work?
 
 If the only changes made by the decryption fixed function block in the network-to-host
 direction were to decrypt parts of the packet that were previously
@@ -1009,20 +1006,23 @@ implementation might use some of the techniques mentioned in the
 previous paragraph, but hidden from the P4 developer. The proposed PNA
 design should not prevent this, if an implementer is willing to go to
 that effort.
-=== Appendix: Packet path figures 
+[appendix]
+== Appendix: Packet path figures 
 
-==== From network, sent to host
+=== From network, sent to host
 
-==== From network, sent to host, with mirror copy to different host
+=== From network, sent to host, with mirror copy to different host
 
-==== From host, to network
+=== From host, to network
 
-==== From host, to network, with mirror copy to a different host
+=== From host, to network, with mirror copy to a different host
 
-==== From host, to host
+=== From host, to host
 
-==== From port, to port
-=== Appendix: Packet ordering
+=== From port, to port
+
+[appendix]
+== Appendix: Packet ordering
 
 [bibliography]
 == References
