@@ -894,7 +894,7 @@ entries, and thus will often use `add_on_miss = true` and
 
 [appendix]
 [#sec-appendix-revision-history]
-== Appendix: Revision History 
+== Revision History 
 
 .Revision History 
 [.center,%autowidth]
@@ -946,10 +946,10 @@ entries, and thus will often use `add_on_miss = true` and
   the specification and pna.p4 include file.
 
 [appendix]
-== Appendix: Open Issues
+== Open Issues
 
 [appendix]
-== Appendix: Rationale for design
+== Rationale for design
 
 === Why a common pipeline, instead of separate pipelines for each direction?
 
@@ -1007,7 +1007,7 @@ previous paragraph, but hidden from the P4 developer. The proposed PNA
 design should not prevent this, if an implementer is willing to go to
 that effort.
 [appendix]
-== Appendix: Packet path figures 
+== Packet path figures 
 
 === From network, sent to host
 
@@ -1022,7 +1022,7 @@ that effort.
 === From port, to port
 
 [appendix]
-== Appendix: Packet ordering
+== Packet ordering
 
 [bibliography]
 == References
